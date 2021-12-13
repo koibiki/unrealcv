@@ -185,7 +185,9 @@ FJsonObjectBP ReadVertexInfo(AActor* Actor)
 	return FJsonObjectBP(JsonBPArray);	
 
 	// Note: new version uses vertex capture component to capture vertex
-	// TArray<UActorComponent*> VertexCaptureComponents = Actor->GetComponentsByClass(UVertexCaptureComponent::StaticClass());
+	// TArray<UActorComponent*> VertexCaptureComponents;
+	// Actor->GetComponents(UVertexCaptureComponent::StaticClass(), VertexCaptureComponents);
+	// # TArray<UActorComponent*> VertexCaptureComponents = Actor->GetComponentsByClass(UVertexCaptureComponent::StaticClass());
 	// if (VertexCaptureComponents.Num() == 0) continue;
 	// if (VertexCaptureComponents.Num() > 1)
 	// {

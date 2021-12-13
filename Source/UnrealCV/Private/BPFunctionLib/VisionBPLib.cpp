@@ -30,7 +30,7 @@
 // 	{
 // 		int32 BoneIndex = RequiredBones[Index];
 // 		// FReferenceSkeleton
-// 		int32 ParentIndex = SkeletalMesh->RefSkeleton.GetParentIndex(BoneIndex);
+// 		int32 ParentIndex = SkeletalMesh->GetRefSkeleton().GetParentIndex(BoneIndex);
 //
 // 		FVector Start, End;
 // 		FTransform BoneTM = ComponentSpaceTransforms[BoneIndex] * ComponentToWorld;
@@ -44,7 +44,7 @@
 // 		{
 // 			Start = ComponentToWorld.GetLocation();
 // 		}
-// 		FString BoneName = SkeletalMesh->RefSkeleton.GetBoneName(BoneIndex).ToString();
+// 		FString BoneName = SkeletalMesh->GetRefSkeleton().GetBoneName(BoneIndex).ToString();
 // 		UE_LOG(LogTemp, Log, TEXT("Bone: %d, %s, Start: %s, End: %s"), BoneIndex, *BoneName, *Start.ToString(), *End.ToString());
 // 		Data += FString::Printf(TEXT("Bone: %d, %s, Start: %s, End: %s\r\n"), BoneIndex, *BoneName, *Start.ToString(), *End.ToString());
 // 	}
@@ -138,7 +138,7 @@ void UVisionBPLib::SaveNpy(const TArray<float>& FloatData, int Width, int Height
 }
 
 void UVisionBPLib::GetBoneTransform(
-	const USkeletalMeshComponent* SkeletalMeshComponent,
+	USkeletalMeshComponent* SkeletalMeshComponent,
 	const TArray<FString>& IncludedBones,
 	TArray<FString>& BoneNames,
 	TArray<FTransform>& BoneTransforms,
@@ -164,7 +164,7 @@ void UVisionBPLib::GetBoneTransform(
 }
 
 void UVisionBPLib::GetBoneTransformJson(
-	const USkeletalMeshComponent* SkeletalMeshComponent,
+	USkeletalMeshComponent* SkeletalMeshComponent,
 	const TArray<FString>& IncludedBones,
 	TArray<FString>& BoneNames,
 	TArray<FJsonObjectBP>& BoneTransformsJson,
@@ -299,10 +299,10 @@ TArray<FVector> UVisionBPLib::StaticMeshComponentGetVertexArray(UStaticMeshCompo
 
 	if (StaticMesh)
 	{
-		uint32 NumLODLevel = StaticMesh->RenderData->LODResources.Num();
+		uint32 NumLODLevel = StaticMesh->GetRenderData()->LODResources.Num();
 		for (uint32 LODIndex = 0; LODIndex < NumLODLevel; LODIndex++)
 		{
-			FStaticMeshLODResources& LODModel = StaticMesh->RenderData->LODResources[LODIndex];
+			FStaticMeshLODResources& LODModel = StaticMesh->GetRenderData()->LODResources[LODIndex];
 			FStaticMeshComponentLODInfo* InstanceMeshLODInfo = NULL;
 
 			uint32 NumVertices = LODModel.GetNumVertices();

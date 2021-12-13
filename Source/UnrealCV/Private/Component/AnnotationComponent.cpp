@@ -327,9 +327,9 @@ FPrimitiveSceneProxy* UAnnotationComponent::CreateSceneProxy(UStaticMeshComponen
 	UMaterialInterface* ProxyMaterial = AnnotationMID; // Material Instance Dynamic
 	UStaticMesh* ParentStaticMesh = StaticMeshComponent->GetStaticMesh();
 	if(ParentStaticMesh == NULL
-		|| ParentStaticMesh->RenderData == NULL
-		|| ParentStaticMesh->RenderData->LODResources.Num() == 0)
-		// || StaticMesh->RenderData->LODResources[0].VertexBuffer.GetNumVertices() == 0)
+		|| ParentStaticMesh->GetRenderData() == NULL
+		|| ParentStaticMesh->GetRenderData()->LODResources.Num() == 0)
+		// || StaticMesh->GetRenderData()->LODResources[0].VertexBuffer.GetNumVertices() == 0)
 	{
 		// UE_LOG(LogTemp, Warning, TEXT("%s, ParentStaticMesh is invalid."), *StaticMeshComponent->GetName());
 		return NULL;
@@ -352,7 +352,7 @@ FPrimitiveSceneProxy* UAnnotationComponent::CreateSceneProxy(USkeletalMeshCompon
 
 	// Only create a scene proxy for rendering if properly initialized
 	if (SkelMeshRenderData &&
-		SkelMeshRenderData->LODRenderData.IsValidIndex(SkeletalMeshComponent->PredictedLODLevel) &&
+		SkelMeshRenderData->LODRenderData.IsValidIndex(SkeletalMeshComponent->GetPredictedLODLevel()) &&
 		SkeletalMeshComponent->MeshObject) // The risk of using MeshObject
 	{
 		// Only create a scene proxy if the bone count being used is supported, or if we don't have a skeleton (this is the case with destructibles)
