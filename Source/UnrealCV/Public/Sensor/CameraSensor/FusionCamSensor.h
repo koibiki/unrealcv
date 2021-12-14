@@ -103,7 +103,7 @@ public:
 
 	// void SetFilmSize(int Width, int Height);
 
-	UPROPERTY(meta = (AllowPrivateAccess= "true"))
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv", meta = (AllowPrivateAccess= "true"))
 	class UCameraComponent* PreviewCamera;
 
 	virtual void BeginPlay() override;
@@ -116,32 +116,32 @@ public:
 #endif
 
 private:
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, Category = "unrealcv", meta=(AllowPrivateAccess = "true"))
 	EPresetFilmSize PresetFilmSize;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, Category = "unrealcv", meta=(AllowPrivateAccess = "true"))
 	int FilmWidth;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, Category = "unrealcv", meta=(AllowPrivateAccess = "true"))
 	int FilmHeight;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, Category = "unrealcv", meta=(AllowPrivateAccess = "true"))
 	float FOV;
 
 protected:
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv")
 	TArray<class UBaseCameraSensor*> FusionSensors;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv")
 	class UDepthCamSensor* DepthCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv")
 	class UNormalCamSensor* NormalCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv")
 	class UAnnotationCamSensor* AnnotationCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "unrealcv")
 	class ULitCamSensor* LitCamSensor;
 
 	/** This preview camera is used for UE version < 4.17 which only support UCameraComponent PIP preview
