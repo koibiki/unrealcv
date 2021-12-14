@@ -65,4 +65,6 @@ private:
 	FExecStatus SetScale(const TArray<FString>& Args);
 
 	FExecStatus GetBounds(const TArray<FString>& Args);
+
+	FExecStatus GetState(const TArray<FString>& Args);
 };

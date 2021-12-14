@@ -151,6 +151,12 @@ void FObjectHandler::RegisterCommands()
 		"Set the name of the object"
 	);
 
+	CommandDispatcher->BindCommand(
+		"vget /object/[str]/state",
+		FDispatcherDelegate::CreateRaw(this, &FObjectHandler::GetState),
+		"Get object state"
+	);
+
 #if WITH_EDITOR
 	CommandDispatcher->BindCommand(
 		"vget /object/[str]/label",
@@ -190,6 +196,30 @@ AActor* GetActor(const TArray<FString>& Args)
 	AActor* Actor = GetActorById(FUnrealcvServer::Get().GetWorld(), ActorId);
 	return Actor;
 }
+
+
+FExecStatus FObjectHandler::GetState(const TArray<FString>& Args)
+{
+	FString ActorIdstr = Args[0];
+	TArray<FString> ActorIds; 
+	ActorIdstr.ParseIntoArray(ActorIds, TEXT(","), false);
+
+	FString StrActorList;
+	for (FString ActorId : ActorIds)
+	{
+		AActor* Actor = GetActorById(FUnrealcvServer::Get().GetWorld(), ActorId);
+		if (!Actor) continue;
+
+		FActorController Controller(Actor);
+		FVector Location = Controller.GetLocation();
+		StrActorList += FString::Printf(TEXT("%.3f "), Location.X);
+		StrActorList += FString::Printf(TEXT("%.3f "), Location.Y);
+		StrActorList += FString::Printf(TEXT("%.3f "), Location.Z);
+		StrActorList += FString::Printf(TEXT(" end;"));
+	}
+	return FExecStatus::OK(StrActorList);
+}
+
 
 FExecStatus FObjectHandler::GetObjectList(const TArray<FString>& Args)
 {
